@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	SHOULD_CALL_PARENT(TRUE)
 	remove_innate_effects(old_body)
-	if(!soft_antag && old_body.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
+	if(!soft_antag && old_body && old_body.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
 		old_body.remove_from_current_living_antags()
 	apply_innate_effects(new_body)
 	if(!soft_antag && new_body.stat != DEAD)
@@ -301,7 +301,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 
 //ADMIN TOOLS
-
 //Called when using admin tools to give antag status
 /datum/antagonist/proc/admin_add(datum/mind/new_owner,mob/admin)
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name].")
@@ -318,8 +317,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(uses_ambitions && owner.my_ambitions.submitted)
 		ambitions_removal()
 	//SKYRAT EDIT ADDITION END
-	on_removal()
-
+	//SKYRAT EDIT CHANGE -- ORIGINALLY CALLED on_removal()
+	owner.remove_antag_datum(src)
 //gamemode/proc/is_mode_antag(antagonist/A) => TRUE/FALSE
 
 /**
