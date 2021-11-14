@@ -330,7 +330,9 @@
 		for(var/datum/job/job_datum as anything in department.department_jobs)
 			if(IsJobUnavailable(job_datum.title, TRUE) != JOB_AVAILABLE)
 				continue
-
+			if (src.client.prefs.alt_job_titles[job_datum.title])
+				var/alt_title = ""
+				job_datum. = (src.client.prefs.alt_job_titles[job_datum.title])
 			var/command_bold = ""
 			if(job_datum.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
 				command_bold = " command"

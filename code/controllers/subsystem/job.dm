@@ -266,7 +266,7 @@ SUBSYSTEM_DEF(job)
 			JobDebug("GRJ skipping Central Command role, Player: [player], Job: [job]")
 			continue
 		//SKYRAT EDIT END
-		
+
 		// This check handles its own output to JobDebug.
 		if(check_job_eligibility(player, job, "GRJ", add_job_to_log = TRUE) != JOB_AVAILABLE)
 			continue
@@ -526,8 +526,8 @@ SUBSYSTEM_DEF(job)
 	equipping.mind?.set_assigned_role(job)
 	//SKYRAT EDIT ADD - ALTERNATE JOB TITLES
 	var/display_rank = job.title
-	if(player_client && player_client.prefs && player_client.prefs.alt_titles_preferences[job.title])
-		display_rank = player_client.prefs.alt_titles_preferences[job.title]
+	if(player_client && player_client.prefs && player_client.prefs.alt_job_titles[job.title])
+		display_rank = player_client.prefs.alt_job_titles[job.title]
 	if(player_client)
 		to_chat(player_client, "<span class='infoplain'><b>You are the [display_rank].</b></span>")
 	/* SKYRAT EDIT ORIGINAL

@@ -155,6 +155,8 @@ GLOBAL_DATUM_INIT(data_core, /datum/datacore, new)
 	for(var/datum/data/record/record as anything in GLOB.data_core.general)
 		var/truerank = record.fields["truerank"] // SKYRAT EDIT ADD - ALT TITLES
 		var/datum/job/job = SSjob.GetJob(truerank) // SKYRAT EDIT - ORIGINAL CALLED GetJob(rank)
+		var/name = record.fields["name"]
+		var/rank = record.fields["rank"]
 		if(!job || !(job.job_flags & JOB_CREW_MANIFEST) || !LAZYLEN(job.departments_list)) // In case an unlawful custom rank is added.
 			var/list/misc_list = manifest_out[DEPARTMENT_UNASSIGNED]
 			misc_list[++misc_list.len] = list(
@@ -224,10 +226,10 @@ GLOBAL_DATUM_INIT(data_core, /datum/datacore, new)
 		var/assignment = H.mind.assigned_role.title
 		//SKYRAT EDIT ADD - ALTERNATE JOB TITLES
 		var/true_assignment = assignment
-		if(H.client && H.client.prefs && H.client.prefs.alt_titles_preferences[true_assignment]) // latejoin
-			assignment = H.client.prefs.alt_titles_preferences[true_assignment]
-		else if(C && C.prefs && C.prefs.alt_titles_preferences[true_assignment]) // roundstart - yes both do separate things i don't fucking know why but they do and if they're not both there then they don't fucking work leave me ALONE
-			assignment = C.prefs.alt_titles_preferences[true_assignment]
+		if(H.client && H.client.prefs && H.client.prefs.alt_job_titles[true_assignment]) // latejoin
+			assignment = H.client.prefs.alt_job_titles[true_assignment] // btw this is a awful way to do things use read_preference if you can
+		else if(C && C.prefs && C.prefs.alt_job_titles[true_assignment]) // roundstart - yes both do separate things i don't fucking know why but they do and if they're not both there then they don't fucking work leave me ALONE
+			assignment = C.prefs.alt_job_titles[true_assignment]
 		//SKYRAT EDIT ADD END
 
 		var/static/record_id_num = 1001
