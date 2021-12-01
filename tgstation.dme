@@ -4610,6 +4610,7 @@
 #include "modular_skyrat\modules\faction\code\mapping\ruins.dm"
 #include "modular_skyrat\modules\firefighter\code\firefighter.dm"
 #include "modular_skyrat\modules\fishing\code\fishing.dm"
+#include "modular_skyrat\modules\foodmenu\code\foodmenu.dm"
 #include "modular_skyrat\modules\GAGS\greyscale_configs.dm"
 #include "modular_skyrat\modules\GAGS\nsfw\greyscale_configs.dm"
 #include "modular_skyrat\modules\ghostcafe\code\dusts_on_catatonia.dm"

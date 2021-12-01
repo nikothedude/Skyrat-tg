@@ -23,6 +23,7 @@ const CharacterControls = (props: {
   handleRotate: () => void,
   handleOpenSpecies: () => void,
   handleLoadout: () => void, // SKYRAT EDIT ADDITION
+  handleFood: () => void, // SKYRAT EDIT ADDITION
   gender: Gender,
   setGender: (gender: Gender) => void,
   showGender: boolean,
@@ -69,6 +70,17 @@ const CharacterControls = (props: {
           />
         </Stack.Item>
       )}
+
+      <Stack.Item>
+        <Button
+        // SKYRAT EDIT ADDITION
+          onClick={props.handleFood}
+          fontSize="22px"
+          icon="apple-alt"
+          tooltip="Show Food Preferences"
+          tooltipPosition="top"
+        />
+      </Stack.Item>
     </Stack>
   );
 };
@@ -406,7 +418,7 @@ const PreferenceList = (props: {
 };
 
 export const MainPage = (props: {
-  openSpecies: () => void,
+  openSpecies: () => void, openFood: () => void,
 }, context) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
   const [currentClothingMenu, setCurrentClothingMenu]
@@ -515,6 +527,7 @@ export const MainPage = (props: {
                     handleLoadout={() => {
                       act("open_loadout");
                     }}
+                    handleFood={props.openFood}
                     // SKYRAT EDIT END
                     setGender={createSetPreference(act, "gender")}
                     showGender={

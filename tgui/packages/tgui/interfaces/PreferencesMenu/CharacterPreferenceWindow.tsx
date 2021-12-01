@@ -20,6 +20,7 @@ enum Page {
 // SKYRAT EDIT
   Limbs,
   Languages,
+  Food,
 // SKYRAT EDIT END
   Species,
   Quirks,
@@ -77,12 +78,19 @@ export const CharacterPreferenceWindow = (props, context) => {
     case Page.Main:
       pageContents = (<MainPage
         openSpecies={() => setCurrentPage(Page.Species)}
+        openFood={() => setCurrentPage(Page.Food)}
       />);
 
       break;
     case Page.Species:
       pageContents = (<SpeciesPage
         closeSpecies={() => setCurrentPage(Page.Main)}
+      />);
+
+      break;
+    case Page.Food:
+      pageContents = (<FoodPage
+        closeFood={() => setCurrentPage(Page.Main)}
       />);
 
       break;
