@@ -54,20 +54,43 @@ GLOBAL_LIST_EMPTY_TYPED(interaction_instances, /datum/interaction)
 		return FALSE
 
 	if(user_required_parts.len)
+		var/is_viable_for_interaction = TRUE
 		for(var/thing in user_required_parts)
-			var/obj/item/organ/genital/required_part = user.getorganslot(thing)
-			if(isnull(required_part))
+			var/datum/dna/required_part_dna = user.dna.features[thing] //necessary for sheaths and such
+			if(istype(thing, /obj/item/organ)) //we arent checking organs here
+				continue
+			if(isnull(required_part_dna))
 				return FALSE
-			if(!required_part.is_exposed())
-				return FALSE
+				is_viable_for_interaction = FALSE
+				break //sadly i know not of a way to check if a dna feature is exposed
+			else
+				continue
+		if (is_viable_for_interaction) //did the last for loop succeed?
+			for(var/thing in user_required_parts)
+				var/obj/item/organ/genital/required_part = user.getorganslot(thing)
+				if(istype(thing, /datum/dna)) //if the last for loop didn't break, then we know any DNA features are not null and thus are okay
+					continue
+				if(isnull(required_part))
+					return FALSE
+					is_viable_for_interaction = FALSE
+					break
+				if(!required_part.is_exposed())
+					return FALSE
+					is_viable_for_interaction = FALSE
+					break
+		else
+			return FALSE //this is mainly just a sanity check, the return false shouldve done its job in the first for loop
 
 	if(target_required_parts.len)
 		for(var/thing in target_required_parts)
 			var/obj/item/organ/genital/required_part = target.getorganslot(thing)
 			if(isnull(required_part))
 				return FALSE
+				break
 			if(!required_part.is_exposed())
 				return FALSE
+				break
+
 
 	for(var/requirement in interaction_requires)
 		switch(requirement)
