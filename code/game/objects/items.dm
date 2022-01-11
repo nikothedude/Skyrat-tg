@@ -5,13 +5,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 	name = "item"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	pass_flags_self = PASSITEM
 
 	/* !!!!!!!!!!!!!!! IMPORTANT !!!!!!!!!!!!!!
 
 		IF YOU ADD MORE ICON CRAP TO THIS
 		ENSURE YOU ALSO ADD THE NEW VARS TO CHAMELEON ITEM_ACTION'S update_item() PROC (/datum/action/item_action/chameleon/change/proc/update_item())
 		WASHING MASHINE'S dye_item() PROC (/obj/item/proc/dye_item())
-		AND ALSO TO THE CHANGELING PROFILE DISGUISE SYSTEMS (/datum/changelingprofile / /datum/antagonist/changeling/proc/create_profile() / /proc/changeling_transform())
+		AND ALSO TO THE CHANGELING PROFILE DISGUISE SYSTEMS (/datum/changeling_profile / /datum/antagonist/changeling/proc/create_profile() / /proc/changeling_transform())
 
 		!!!!!!!!!!!!!!! IMPORTANT !!!!!!!!!!!!!! */
 
@@ -44,7 +45,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 		IF YOU ADD MORE ICON CRAP TO THIS
 		ENSURE YOU ALSO ADD THE NEW VARS TO CHAMELEON ITEM_ACTION'S update_item() PROC (/datum/action/item_action/chameleon/change/proc/update_item())
 		WASHING MASHINE'S dye_item() PROC (/obj/item/proc/dye_item())
-		AND ALSO TO THE CHANGELING PROFILE DISGUISE SYSTEMS (/datum/changelingprofile / /datum/antagonist/changeling/proc/create_profile() / /proc/changeling_transform())
+		AND ALSO TO THE CHANGELING PROFILE DISGUISE SYSTEMS (/datum/changeling_profile / /datum/antagonist/changeling/proc/create_profile() / /proc/changeling_transform())
 
 		!!!!!!!!!!!!!!! IMPORTANT !!!!!!!!!!!!!! */
 
@@ -418,7 +419,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 		affixes.Add(suffixes)
 
 		//admin picks, cleanup the ones we didn't do and handle chosen
-		var/picked_affix_name = input(usr, "Choose an affix to add to [src]...", "Enchant [src]") as null|anything in affixes
+		var/picked_affix_name = tgui_input_list(usr, "Affix to add to [src]", "Enchant [src]", affixes)
+		if(isnull(picked_affix_name))
+			return
 		if(!affixes[picked_affix_name] || QDELETED(src))
 			return
 		var/datum/fantasy_affix/affix = affixes[picked_affix_name]
@@ -837,8 +840,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if (obj_flags & CAN_BE_HIT)
 		return ..()
 	return 0
-
-attack_basic_mob
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -1286,7 +1287,7 @@ attack_basic_mob
 
 	var/list/items = list()
 	for(var/reskin_option in unique_reskin)
-		var/image/item_image = image(icon = unique_reskin[reskin_option][RESKIN_ICON], icon_state = unique_reskin[reskin_option][RESKIN_ICON_STATE])
+		var/image/item_image = image(icon = unique_reskin[reskin_option][RESKIN_ICON] ? unique_reskin[reskin_option][RESKIN_ICON] : icon, icon_state = unique_reskin[reskin_option][RESKIN_ICON_STATE])
 		items += list("[reskin_option]" = item_image)
 	sort_list(items)
 
@@ -1296,9 +1297,12 @@ attack_basic_mob
 	if(!unique_reskin[pick])
 		return
 	current_skin = pick
-	icon = unique_reskin[pick][RESKIN_ICON]
-	icon_state = unique_reskin[pick][RESKIN_ICON_STATE]
-	worn_icon = unique_reskin[pick][RESKIN_WORN_ICON]
+	if(unique_reskin[pick][RESKIN_ICON])
+		icon = unique_reskin[pick][RESKIN_ICON]
+	if(unique_reskin[pick][RESKIN_ICON_STATE])
+		icon_state = unique_reskin[pick][RESKIN_ICON_STATE]
+	if(unique_reskin[pick][RESKIN_WORN_ICON])
+		worn_icon = unique_reskin[pick][RESKIN_WORN_ICON]
 	if(unique_reskin[pick][RESKIN_WORN_ICON_STATE])
 		worn_icon_state = unique_reskin[pick][RESKIN_WORN_ICON_STATE]
 	if(unique_reskin[pick][RESKIN_MUTANT_VARIANTS])
@@ -1308,3 +1312,11 @@ attack_basic_mob
 		wearer.regenerate_icons() // update that mf
 	to_chat(M, "[src] is now skinned as '[pick].'")
 /// SKYRAT EDIT ADDITION END
+
+/// Special stuff you want to do when an outfit equips this item.
+/obj/item/proc/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
+	return
+
+/// Whether or not this item can be put into a storage item through attackby
+/obj/item/proc/attackby_storage_insert(datum/component/storage, atom/storage_holder, mob/user)
+	return TRUE

@@ -8,7 +8,7 @@
 	genetic = TRUE
 
 /datum/sprite_accessory/snouts/is_hidden(mob/living/carbon/human/H, obj/item/bodypart/HD)
-	if((H.wear_mask && (H.wear_mask.flags_inv & HIDEFACE)) || (H.head && (H.head.flags_inv & HIDEFACE)) || !HD)
+	if((H.wear_mask && (H.wear_mask.flags_inv & HIDESNOUT)) || (H.head && (H.head.flags_inv & HIDESNOUT)) || !HD)
 		return TRUE
 	return FALSE
 
@@ -35,6 +35,10 @@
 /datum/sprite_accessory/snouts/mammal/bird
 	name = "Beak"
 	icon_state = "bird"
+
+/datum/sprite_accessory/snouts/mammal/birdsmall
+	name = "Beak (small)"
+	icon_state = "birdsmall"
 
 /datum/sprite_accessory/snouts/mammal/bigbeak
 	name = "Big Beak"

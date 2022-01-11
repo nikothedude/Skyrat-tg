@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(cached_mutant_icon_files)
 	var/special_x_dimension
 	///Special case of whether the accessory should have a different icon, check taur genitals for example
 	var/special_icon_case
-	///Special case of applying a different color, like hardsuit tails
+	///Special case of applying a different color, like MODsuit tails
 	var/special_colorize
 	///Whether it has any extras to render, and their appropriate color sources
 	var/extra = FALSE
@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(cached_mutant_icon_files)
 
 /datum/sprite_accessory/spines/is_hidden(mob/living/carbon/human/H, obj/item/bodypart/HD)
 	var/obj/item/organ/tail/T = H.getorganslot(ORGAN_SLOT_TAIL)
-	if(!T || (H.wear_suit && (H.try_hide_mutant_parts || H.wear_suit.flags_inv & HIDEJUMPSUIT)))
+	if(!T || (H.wear_suit && (H.try_hide_mutant_parts || H.wear_suit.flags_inv & HIDEJUMPSUIT || H.wear_suit.flags_inv & HIDESPINE)))
 		return TRUE
 	return FALSE
 

@@ -9,6 +9,8 @@
 #define COMSIG_HORRORFORM_EXPLODE "horrorform_explode"
 ///Overlay for whitestuff
 #define COMSIG_MOB_CUMFACED "mob_cumfaced" //from /datum/component/cumfaced/Initialize(), when you get covered in cum
+///Fired in combat_indicator.dm, used for syncing CI between mech and pilot
+#define COMSIG_MOB_CI_TOGGLED "mob_ci_toggled"
 
 //Gun signals
 ///When a gun is switched to automatic fire mode
@@ -70,3 +72,6 @@
 #define COMSIG_START_FISHING "start_fishing"
 //when someone pulls back their fishing rod
 #define COMSIG_FINISH_FISHING "finish_fishing"
+
+/// From mob/living/*/set_combat_mode(): (new_state)
+#define COMSIG_LIVING_COMBAT_MODE_TOGGLE "living_combat_mode_toggle"
