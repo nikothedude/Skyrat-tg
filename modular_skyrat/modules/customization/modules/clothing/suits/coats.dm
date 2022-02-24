@@ -245,10 +245,10 @@
 	AddElement(/datum/element/polychromic, list("#55DD55"))
 
 /obj/item/clothing/suit/poncho
-    mutant_variants = STYLE_TAUR_ALL
+    mutant_variants = STYLE_TAUR_PAW|STYLE_TAUR_HOOF
 
 /obj/item/clothing/suit/apron
-    mutant_variants = STYLE_TAUR_ALL
+    mutant_variants = STYLE_TAUR_PAW|STYLE_TAUR_HOOF
 
 /obj/item/clothing/suit/toggle/lawyer/white
 	name = "white suit jacket"

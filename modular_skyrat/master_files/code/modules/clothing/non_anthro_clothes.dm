@@ -159,10 +159,10 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	mutant_variants = NONE
-	
+
 /obj/item/clothing/head/helmet/space/hardsuit/berserker
 	mutant_variants = NONE
-	
+
 /obj/item/clothing/head/hooded/cloakhood/godslayer
 	mutant_variants = NONE
 
@@ -275,9 +275,6 @@
 	mutant_variants = NONE
 
 /obj/item/clothing/suit/ianshirt
-	mutant_variants = NONE
-
-/obj/item/clothing/suit/poncho
 	mutant_variants = NONE
 
 /obj/item/clothing/suit/wizrobe
@@ -462,7 +459,7 @@
 
 /obj/item/clothing/head/hooded/techpriest
 	mutant_variants = NONE
-	
+
 /obj/item/clothing/suit/space/hardsuit/berserker
 	mutant_variants = NONE
 
