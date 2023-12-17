@@ -20,6 +20,7 @@ enum Page {
   // SKYRAT EDIT
   Limbs,
   Languages,
+  Food,
   // SKYRAT EDIT END
   Species,
   Quirks,
@@ -72,6 +73,9 @@ export const CharacterPreferenceWindow = (props) => {
       break;
     case Page.Languages:
       pageContents = <LanguagesPage />;
+      break;
+    case Page.Food
+      pageContents = <FoodPage />;
       break;
     // SKYRAT EDIT END
     case Page.Main:
