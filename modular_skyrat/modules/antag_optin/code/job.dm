@@ -6,6 +6,9 @@
 	/// Is this job targettable by contractors?
 	var/contractable
 
+/datum/job/ai
+	minimum_opt_in_level = OPT_IN_YES_KILL
+
 /// Updates [minimum_opt_in_level] [heretic_sac_target] and [contractable].
 /datum/job/proc/update_opt_in_vars()
 	if(CONFIG_GET(flag/disable_antag_opt_in_preferences))
