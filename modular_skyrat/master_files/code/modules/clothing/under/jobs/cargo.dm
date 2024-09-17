@@ -41,6 +41,7 @@
 	name = "supply turtleneck"
 	desc = "A snug turtleneck sweater worn by the Supply department.."
 	icon_state = "turtleneck_cargo"
+	gets_cropped_on_taurs = FALSE
 
 /obj/item/clothing/under/rank/cargo/tech/skyrat/turtleneck/skirt
 	name = "supply skirtleneck"
